@@ -1,4 +1,4 @@
-namespace PosSystem.Domain;
+namespace PosSystem;
 
 public sealed record Score
 {

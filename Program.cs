@@ -1,7 +1,4 @@
 using Microsoft.Extensions.DependencyInjection;
-using PosSystem.Application;
-using PosSystem.Domain;
-using PosSystem.Infrastructure;
 
 namespace PosSystem;
 
@@ -24,10 +21,7 @@ class Program
         var provider = services.BuildServiceProvider();
         var pos = provider.GetRequiredService<PosFacade>();
 
-        // Автоматический сквозной сценарий 
         RunDemoScenario(pos);
-
-        // Интерактивное меню
         RunInteractiveMenu(pos);
     }
 
@@ -52,10 +46,9 @@ class Program
         Console.WriteLine($"Итог {s1.FullName}: {pos.GetStudentFinalScore(s1.Id)} / 10");
         Console.WriteLine($"Итог {s2.FullName}: {pos.GetStudentFinalScore(s2.Id)} / 10");
 
-        // Проверка инвариантов
         try
         {
-            pos.SetOrUpdateEvaluation(s1.Id, c1.Id, 12); 
+            pos.SetOrUpdateEvaluation(s1.Id, c1.Id, 12);
         }
         catch (ArgumentException ex)
         {
@@ -64,7 +57,7 @@ class Program
 
         try
         {
-            pos.SetOrUpdateEvaluation(s1.Id, Guid.NewGuid(), 5); 
+            pos.SetOrUpdateEvaluation(s1.Id, Guid.NewGuid(), 5);
         }
         catch (InvalidOperationException ex)
         {
@@ -116,6 +109,11 @@ class Program
                     case "3":
                         var students = pos.GetAllStudents();
                         var criteria = pos.GetAllCriteria();
+                        if (!students.Any() || !criteria.Any())
+                        {
+                            Console.WriteLine("Сначала добавьте студентов и критерии!\n");
+                            break;
+                        }
                         for (int i = 0; i < students.Count; i++)
                             Console.WriteLine($"{i + 1}. {students[i].FullName}");
                         Console.Write("Номер студента: ");
@@ -138,6 +136,7 @@ class Program
                     case "4":
                         var stList = pos.GetAllStudents();
                         var crList = pos.GetAllCriteria();
+                        if (!stList.Any() || !crList.Any()) break;
                         for (int i = 0; i < stList.Count; i++) Console.WriteLine($"{i + 1}. {stList[i].FullName}");
                         Console.Write("Номер студента: ");
                         var sDel = stList[int.Parse(Console.ReadLine() ?? "1") - 1];

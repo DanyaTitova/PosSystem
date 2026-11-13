@@ -1,7 +1,6 @@
 using System.Text;
-using PosSystem.Domain;
 
-namespace PosSystem.Infrastructure;
+namespace PosSystem;
 
 public class CsvReportExporter : IReportExporter
 {

@@ -1,11 +1,10 @@
-namespace PosSystem.Domain;
+namespace PosSystem;
 
 public interface IGradeStrategy
 {
     decimal Calculate(IReadOnlyList<Evaluation> evaluations, IReadOnlyList<Criterion> criteria);
 }
 
-// Стратегия 1: Взвешенная нормализованная оценка по 10-балльной шкале
 public class WeightedTenPointStrategy : IGradeStrategy
 {
     public decimal Calculate(IReadOnlyList<Evaluation> evaluations, IReadOnlyList<Criterion> criteria)
@@ -28,7 +27,6 @@ public class WeightedTenPointStrategy : IGradeStrategy
     }
 }
 
-// Стратегия 2: Сумма набранных баллов без нормализации
 public class RawSumStrategy : IGradeStrategy
 {
     public decimal Calculate(IReadOnlyList<Evaluation> evaluations, IReadOnlyList<Criterion> criteria)

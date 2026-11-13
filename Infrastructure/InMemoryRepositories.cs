@@ -1,6 +1,4 @@
-using PosSystem.Domain;
-
-namespace PosSystem.Infrastructure;
+namespace PosSystem;
 
 public class InMemoryStudentRepository : IStudentRepository
 {

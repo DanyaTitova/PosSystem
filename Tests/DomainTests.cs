@@ -1,7 +1,6 @@
-using PosSystem.Domain;
 using Xunit;
 
-namespace PosSystem.Tests;
+namespace PosSystem;
 
 public class DomainTests
 {
@@ -41,7 +40,7 @@ public class DomainTests
         var evals = new List<Evaluation>
         {
             factory.Create(student, c1, 5), 
-            factory.Create(student, c2, 5) 
+            factory.Create(student, c2, 5)  
         };
 
         var service = new GradeCalculationService(new WeightedTenPointStrategy());
